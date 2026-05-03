@@ -12,8 +12,11 @@
 4. [In Progress] Aidan : Implement core game logic — `Board`, `Game`, `GameState`, `GameStatus` (with BVA and unit tests)
 5. [In Progress] Julia Li: Implement GUI layer — `MainFrame`, `BoardPanel`, `SetupDialog`, `Main` (Java Swing)
 
-# Week 5 (XX/XX/2026-XX/XX/2026) TEMPLATE (You can change the format to whatever the team likes better)
+
+# Week 5 (04/27/2026-05/03/2026)
 **Planning and Progress Tracking**:
-1. [done] Person: Task (Links to PR)
-2. [not started] Person: Task (Links to PR)
-3. [80% done] Person: Task (Links to PR)
+1. [done] Xinyuan Liu: Address week 4 feedback — add branch protection (Gradle required check + applies to admins), populate GitHub Project board with setup-phase work items and assignees
+2. [done] Xinyuan Liu: Plan "One Turn of the Game" phase — write requirements (`docs/requirements/one-turn.md`), class design (`docs/design/one-turn-design.md`), and BVA (`docs/bva/one-turn.md`) This might require adjustment based on 3,4
+3. [In Progress] Aidan Mott: Implement core game logic — `Board`, `Game`, `GameState`, `GameStatus` (with BVA and unit tests)
+4. [In Progress] Julia Li: Implement GUI layer — `MainFrame`, `BoardPanel`, `SetupDialog` (Java Swing)
+5. [not started] All: Review teammates' PRs when ready — verify BVA coverage and TDD commit history before approving
