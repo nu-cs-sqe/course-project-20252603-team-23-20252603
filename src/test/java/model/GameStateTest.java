@@ -42,6 +42,15 @@ public class GameStateTest {
     }
 
     @Test
+    void setStatus_checkmate_updatesState() { // BVA-GS-05
+        GameState state = new GameState();
+
+        state.setStatus(GameStatus.CHECKMATE);
+
+        assertEquals(GameStatus.CHECKMATE, state.getStatus());
+    }
+
+    @Test
     void setStatus_null_throwsException() { // BVA-GS-06
         GameState state = new GameState();
 
@@ -49,5 +58,5 @@ public class GameStateTest {
             state.setStatus(null);
         });
     }
-    
+
 }
