@@ -28,7 +28,43 @@ public class Board {
     }
 
     public void initialize() {
-        // TODO: implement full chess setup later
+
+        // clear board first (important if reused)
+        for (int r = 0; r < 8; r++) {
+            for (int c = 0; c < 8; c++) {
+                grid[r][c] = null;
+            }
+        }
+
+        // White back row (row 0)
+        grid[0][0] = new Piece(PieceType.ROOK, Color.WHITE);
+        grid[0][1] = new Piece(PieceType.KNIGHT, Color.WHITE);
+        grid[0][2] = new Piece(PieceType.BISHOP, Color.WHITE);
+        grid[0][3] = new Piece(PieceType.QUEEN, Color.WHITE);
+        grid[0][4] = new Piece(PieceType.KING, Color.WHITE);
+        grid[0][5] = new Piece(PieceType.BISHOP, Color.WHITE);
+        grid[0][6] = new Piece(PieceType.KNIGHT, Color.WHITE);
+        grid[0][7] = new Piece(PieceType.ROOK, Color.WHITE);
+
+        // White pawns (row 1)
+        for (int c = 0; c < 8; c++) {
+            grid[1][c] = new Piece(PieceType.PAWN, Color.WHITE);
+        }
+
+        // Black pawns (row 6)
+        for (int c = 0; c < 8; c++) {
+            grid[6][c] = new Piece(PieceType.PAWN, Color.BLACK);
+        }
+
+        // Black back row (row 7)
+        grid[7][0] = new Piece(PieceType.ROOK, Color.BLACK);
+        grid[7][1] = new Piece(PieceType.KNIGHT, Color.BLACK);
+        grid[7][2] = new Piece(PieceType.BISHOP, Color.BLACK);
+        grid[7][3] = new Piece(PieceType.QUEEN, Color.BLACK);
+        grid[7][4] = new Piece(PieceType.KING, Color.BLACK);
+        grid[7][5] = new Piece(PieceType.BISHOP, Color.BLACK);
+        grid[7][6] = new Piece(PieceType.KNIGHT, Color.BLACK);
+        grid[7][7] = new Piece(PieceType.ROOK, Color.BLACK);
     }
 
     private void validatePosition(Position pos) {
