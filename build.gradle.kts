@@ -1,5 +1,7 @@
 plugins {
     id("java")
+    id("checkstyle")
+    id("com.github.spotbugs") version "6.0.9"
 }
 
 group = "nu.csse.sqe"
@@ -26,4 +28,20 @@ tasks.compileJava {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion = "10.21.0"
+    configFile = file("config/checkstyle/checkstyle.xml")
+}
+
+spotbugs {
+    toolVersion = "4.8.6"
+    excludeFilter = file("config/spotbugs/exclude.xml")
+}
+
+tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
+    reports.create("html") {
+        required = true
+    }
 }
