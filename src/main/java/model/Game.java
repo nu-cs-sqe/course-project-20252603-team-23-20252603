@@ -49,4 +49,26 @@ public class Game {
                 ? whitePlayer
                 : blackPlayer;
     }
+
+    public void makeMove(Move move) {
+        if (move == null) {
+            throw new IllegalArgumentException("Move cannot be null");
+        }
+        if (state.getStatus() != GameStatus.IN_PROGRESS) {
+            throw new IllegalStateException("Game is not in progress");
+        }
+        Piece piece = board.getPieceAt(move.getFrom());
+        if (piece == null) {
+            throw new IllegalArgumentException("No piece at source position");
+        }
+        if (piece.getColor() != state.getCurrentTurn()) {
+            throw new IllegalArgumentException("Cannot move opponent's piece");
+        }
+        Piece target = board.getPieceAt(move.getTo());
+        if (target != null && target.getColor() == state.getCurrentTurn()) {
+            throw new IllegalArgumentException("Cannot move to square occupied by own piece");
+        }
+        board.movePiece(move.getFrom(), move.getTo());
+        state.switchTurn();
+    }
 }

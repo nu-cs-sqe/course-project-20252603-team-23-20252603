@@ -67,6 +67,17 @@ public class Board {
         grid[7][7] = new Piece(PieceType.ROOK, Color.BLACK);
     }
 
+    public void movePiece(Position from, Position to) {
+        validatePosition(from);
+        validatePosition(to);
+        Piece piece = grid[from.getRow()][from.getCol()];
+        if (piece == null) {
+            throw new IllegalArgumentException("No piece at source position");
+        }
+        grid[to.getRow()][to.getCol()] = piece;
+        grid[from.getRow()][from.getCol()] = null;
+    }
+
     private void validatePosition(Position pos) {
         if (pos == null || !pos.isValid()) {
             throw new IllegalArgumentException("Invalid position");
