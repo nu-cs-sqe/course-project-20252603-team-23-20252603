@@ -23,11 +23,7 @@
 
 # Week 6 (05/04/2026-05/10/2026)
 **Planning and Progress Tracking**:
-1. [done] Xinyuan Liu: Set up Checkstyle 10.21 and SpotBugs 6.0.9 in `build.gradle.kts`; add `config/checkstyle/checkstyle.xml` (Google-style base, 120-char limit, NeedBraces, AvoidStarImport, EqualsHashCode) and `config/spotbugs/exclude.xml`
-2. [done] Xinyuan Liu: Refactor existing codebase to comply with Checkstyle — fix NeedBraces violations in `Piece.java`, `Player.java`, `Position.java`
-3. [done] Xinyuan Liu: Implement "Multiple turns of the game" phase with full TDD commit history (RED→GREEN→REFACTOR):
-   - `Move` class — BVA-MV-01..07
-   - `Board.movePiece` — BVA-BD-19..22
-   - `Game.makeMove` (with `validateMove` helper) — BVA-MT-01..10
-4. [Not Started] Aidan Mott: Continue implementing GUI layer to support one full game turn
-5. [Not Started] All: Review teammates' PRs — verify BVA coverage and TDD commit history before approving
+1. [done] Xinyuan Liu: Set up Checkstyle 10.21 and SpotBugs 6.0.9 
+2. [done] Xinyuan Liu: Refactor existing codebase to comply with Checkstyle
+3. [done] Xinyuan Liu: Implement "Multiple turns of the game" phase with full TDD commit history
+4. [Not Started] All: Review teammates' PRs — verify BVA coverage and TDD commit history before approving
