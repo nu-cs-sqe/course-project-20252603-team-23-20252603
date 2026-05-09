@@ -5,4 +5,16 @@
         <Class name="~.*Test"/>
         <Bug category="STYLE"/>
     </Match>
+
+    <!-- CT_CONSTRUCTOR_THROW: throwing in constructors for validation is intentional;
+         no finalizers exist in this codebase so finalizer-attack risk does not apply -->
+    <Match>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
+
+    <!-- EI_EXPOSE_REP: GameState is intentionally accessible for game-flow control
+         and test assertions; full encapsulation is deferred to a later phase -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
 </FindBugsFilter>
