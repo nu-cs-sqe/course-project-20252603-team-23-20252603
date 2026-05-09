@@ -51,6 +51,12 @@ public class Game {
     }
 
     public void makeMove(Move move) {
+        validateMove(move);
+        board.movePiece(move.getFrom(), move.getTo());
+        state.switchTurn();
+    }
+
+    private void validateMove(Move move) {
         if (move == null) {
             throw new IllegalArgumentException("Move cannot be null");
         }
@@ -68,7 +74,5 @@ public class Game {
         if (target != null && target.getColor() == state.getCurrentTurn()) {
             throw new IllegalArgumentException("Cannot move to square occupied by own piece");
         }
-        board.movePiece(move.getFrom(), move.getTo());
-        state.switchTurn();
     }
 }
