@@ -205,4 +205,53 @@ public class BoardTest {
         }
     }
 
+    @Test
+    void movePiece_validMove_pieceAtDestination() { // BVA-BD-19
+        Board board = new Board();
+        Piece piece = new Piece(PieceType.ROOK, Color.WHITE);
+        Position from = new Position(0, 0);
+        Position to = new Position(4, 0);
+        board.placePiece(piece, from);
+
+        board.movePiece(from, to);
+
+        assertEquals(piece, board.getPieceAt(to));
+    }
+
+    @Test
+    void movePiece_validMove_sourceCleared() { // BVA-BD-20
+        Board board = new Board();
+        Piece piece = new Piece(PieceType.ROOK, Color.WHITE);
+        Position from = new Position(0, 0);
+        Position to = new Position(4, 0);
+        board.placePiece(piece, from);
+
+        board.movePiece(from, to);
+
+        assertNull(board.getPieceAt(from));
+    }
+
+    @Test
+    void movePiece_capturesPieceAtDestination() { // BVA-BD-21
+        Board board = new Board();
+        Piece white = new Piece(PieceType.ROOK, Color.WHITE);
+        Piece black = new Piece(PieceType.PAWN, Color.BLACK);
+        Position from = new Position(0, 0);
+        Position to = new Position(4, 0);
+        board.placePiece(white, from);
+        board.placePiece(black, to);
+
+        board.movePiece(from, to);
+
+        assertEquals(white, board.getPieceAt(to));
+    }
+
+    @Test
+    void movePiece_emptySource_throwsIllegalArgumentException() { // BVA-BD-22
+        Board board = new Board();
+
+        assertThrows(IllegalArgumentException.class,
+                () -> board.movePiece(new Position(3, 3), new Position(4, 3)));
+    }
+
 }

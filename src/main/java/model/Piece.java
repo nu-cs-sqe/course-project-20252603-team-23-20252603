@@ -6,8 +6,12 @@ public class Piece {
     private final Color color;
 
     public Piece(PieceType type, Color color) {
-        if (type == null) throw new IllegalArgumentException("PieceType must not be null");
-        if (color == null) throw new IllegalArgumentException("Color must not be null");
+        if (type == null) {
+            throw new IllegalArgumentException("PieceType must not be null");
+        }
+        if (color == null) {
+            throw new IllegalArgumentException("Color must not be null");
+        }
         this.type = type;
         this.color = color;
     }
