@@ -52,8 +52,14 @@ public class Game {
 
     public void makeMove(Move move) {
         validateMove(move);
+        Piece captured = board.getPieceAt(move.getTo());
         board.movePiece(move.getFrom(), move.getTo());
-        state.switchTurn();
+        if (captured != null && captured.getType() == PieceType.KING) {
+            state.setStatus(GameStatus.CHECKMATE);
+            state.setWinner(state.getCurrentTurn());
+        } else {
+            state.switchTurn();
+        }
     }
 
     private void validateMove(Move move) {
