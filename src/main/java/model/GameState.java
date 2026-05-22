@@ -4,10 +4,12 @@ public class GameState {
 
     private Color currentTurn;
     private GameStatus status;
+    private Color winner;
 
     public GameState() {
         this.currentTurn = Color.WHITE;
         this.status = GameStatus.SETUP;
+        this.winner = null;
     }
 
     public Color getCurrentTurn() {
@@ -16,6 +18,14 @@ public class GameState {
 
     public GameStatus getStatus() {
         return status;
+    }
+
+    public Color getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Color winner) {
+        this.winner = winner;
     }
 
     public void switchTurn() {
