@@ -196,4 +196,64 @@ public class GameTest {
         game.makeMove(new Move(new Position(6, 0), new Position(4, 0))); // black
         assertEquals(Color.WHITE, game.getState().getCurrentTurn());
     }
+
+    // ── Win condition tests (BVA-WC) ────────────────────────────────────────
+
+    @Test
+    void makeMove_capturesOpponentKing_setsStatusToCheckmate() { // BVA-WC-01
+        Game game = new Game("Alice", "Bob");
+        game.setup();
+        // Place black king where white can capture it directly
+        Board board = game.getBoard();
+        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 0));
+
+        game.makeMove(new Move(new Position(1, 0), new Position(3, 0)));
+
+        assertEquals(GameStatus.CHECKMATE, game.getState().getStatus());
+    }
+
+    @Test
+    void makeMove_capturesOpponentKing_winnerIsCurrentPlayer() { // BVA-WC-02
+        Game game = new Game("Alice", "Bob");
+        game.setup();
+        Board board = game.getBoard();
+        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 0));
+
+        game.makeMove(new Move(new Position(1, 0), new Position(3, 0)));
+
+        assertEquals(Color.WHITE, game.getState().getWinner());
+    }
+
+    @Test
+    void makeMove_afterCheckmate_throwsIllegalStateException() { // BVA-WC-03
+        Game game = new Game("Alice", "Bob");
+        game.setup();
+        Board board = game.getBoard();
+        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 0));
+        game.makeMove(new Move(new Position(1, 0), new Position(3, 0)));
+
+        assertThrows(IllegalStateException.class,
+                () -> game.makeMove(new Move(new Position(1, 1), new Position(3, 1))));
+    }
+
+    @Test
+    void makeMove_capturesNonKing_statusRemainsInProgress() { // BVA-WC-04
+        Game game = new Game("Alice", "Bob");
+        game.setup();
+        // White captures black pawn (row 6, col 0) — not the king
+        Board board = game.getBoard();
+        board.placePiece(new Piece(PieceType.PAWN, Color.BLACK), new Position(3, 0));
+
+        game.makeMove(new Move(new Position(1, 0), new Position(3, 0)));
+
+        assertEquals(GameStatus.IN_PROGRESS, game.getState().getStatus());
+    }
+
+    @Test
+    void getWinner_beforeCheckmate_returnsNull() { // BVA-WC-05
+        Game game = new Game("Alice", "Bob");
+        game.setup();
+
+        assertNull(game.getState().getWinner());
+    }
 }

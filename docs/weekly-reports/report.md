@@ -27,3 +27,13 @@
 2. [done] Xinyuan Liu: Refactor existing codebase to comply with Checkstyle
 3. [done] Xinyuan Liu: Implement "Multiple turns of the game" phase with full TDD commit history
 4. [Not Started] All: Review teammates' PRs — verify BVA coverage and TDD commit history before approving
+
+# Week 7 (05/11/2026-05/17/2026)
+**Planning and Progress Tracking**:
+1. [done] Xinyuan Liu: Set up JaCoCo and Pitest in build.gradle.kts
+2. [done] Xinyuan Liu: Implement "One win condition" 
+3. [In Progress] Julia Li: Continue GUI layer implementation — MainFrame, BoardPanel, SetupDialog
+4. [Not Started] All: Discuss and document Integration Testing plan on GitHub Project board
+5. [Not Started] All: Discuss and document i18n plan on GitHub Project board
+6. [Not Started] All: Review teammates' PRs — verify BVA coverage and TDD commit history before approving
+
