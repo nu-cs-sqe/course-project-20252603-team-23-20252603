@@ -2,10 +2,26 @@ package model;
 
 public class Board {
 
+    public static final int BOARD_SIZE = 8;
+
+    private static final int WHITE_BACK_ROW = 0;
+    private static final int WHITE_PAWN_ROW = 1;
+    private static final int BLACK_PAWN_ROW = 6;
+    private static final int BLACK_BACK_ROW = 7;
+
+    private static final int ROOK_QUEEN_SIDE   = 0;
+    private static final int KNIGHT_QUEEN_SIDE = 1;
+    private static final int BISHOP_QUEEN_SIDE = 2;
+    private static final int QUEEN_FILE        = 3;
+    private static final int KING_FILE         = 4;
+    private static final int BISHOP_KING_SIDE  = 5;
+    private static final int KNIGHT_KING_SIDE  = 6;
+    private static final int ROOK_KING_SIDE    = 7;
+
     private final Piece[][] grid;
 
     public Board() {
-        this.grid = new Piece[8][8];
+        this.grid = new Piece[BOARD_SIZE][BOARD_SIZE];
     }
 
     public Piece getPieceAt(Position pos) {
@@ -30,41 +46,41 @@ public class Board {
     public void initialize() {
 
         // clear board first (important if reused)
-        for (int r = 0; r < 8; r++) {
-            for (int c = 0; c < 8; c++) {
+        for (int r = 0; r < BOARD_SIZE; r++) {
+            for (int c = 0; c < BOARD_SIZE; c++) {
                 grid[r][c] = null;
             }
         }
 
-        // White back row (row 0)
-        grid[0][0] = new Piece(PieceType.ROOK, Color.WHITE);
-        grid[0][1] = new Piece(PieceType.KNIGHT, Color.WHITE);
-        grid[0][2] = new Piece(PieceType.BISHOP, Color.WHITE);
-        grid[0][3] = new Piece(PieceType.QUEEN, Color.WHITE);
-        grid[0][4] = new Piece(PieceType.KING, Color.WHITE);
-        grid[0][5] = new Piece(PieceType.BISHOP, Color.WHITE);
-        grid[0][6] = new Piece(PieceType.KNIGHT, Color.WHITE);
-        grid[0][7] = new Piece(PieceType.ROOK, Color.WHITE);
+        // White back row
+        grid[WHITE_BACK_ROW][ROOK_QUEEN_SIDE]   = new Piece(PieceType.ROOK,   Color.WHITE);
+        grid[WHITE_BACK_ROW][KNIGHT_QUEEN_SIDE]  = new Piece(PieceType.KNIGHT, Color.WHITE);
+        grid[WHITE_BACK_ROW][BISHOP_QUEEN_SIDE]  = new Piece(PieceType.BISHOP, Color.WHITE);
+        grid[WHITE_BACK_ROW][QUEEN_FILE]         = new Piece(PieceType.QUEEN,  Color.WHITE);
+        grid[WHITE_BACK_ROW][KING_FILE]          = new Piece(PieceType.KING,   Color.WHITE);
+        grid[WHITE_BACK_ROW][BISHOP_KING_SIDE]   = new Piece(PieceType.BISHOP, Color.WHITE);
+        grid[WHITE_BACK_ROW][KNIGHT_KING_SIDE]   = new Piece(PieceType.KNIGHT, Color.WHITE);
+        grid[WHITE_BACK_ROW][ROOK_KING_SIDE]     = new Piece(PieceType.ROOK,   Color.WHITE);
 
-        // White pawns (row 1)
-        for (int c = 0; c < 8; c++) {
-            grid[1][c] = new Piece(PieceType.PAWN, Color.WHITE);
+        // White pawns
+        for (int c = 0; c < BOARD_SIZE; c++) {
+            grid[WHITE_PAWN_ROW][c] = new Piece(PieceType.PAWN, Color.WHITE);
         }
 
-        // Black pawns (row 6)
-        for (int c = 0; c < 8; c++) {
-            grid[6][c] = new Piece(PieceType.PAWN, Color.BLACK);
+        // Black pawns
+        for (int c = 0; c < BOARD_SIZE; c++) {
+            grid[BLACK_PAWN_ROW][c] = new Piece(PieceType.PAWN, Color.BLACK);
         }
 
-        // Black back row (row 7)
-        grid[7][0] = new Piece(PieceType.ROOK, Color.BLACK);
-        grid[7][1] = new Piece(PieceType.KNIGHT, Color.BLACK);
-        grid[7][2] = new Piece(PieceType.BISHOP, Color.BLACK);
-        grid[7][3] = new Piece(PieceType.QUEEN, Color.BLACK);
-        grid[7][4] = new Piece(PieceType.KING, Color.BLACK);
-        grid[7][5] = new Piece(PieceType.BISHOP, Color.BLACK);
-        grid[7][6] = new Piece(PieceType.KNIGHT, Color.BLACK);
-        grid[7][7] = new Piece(PieceType.ROOK, Color.BLACK);
+        // Black back row
+        grid[BLACK_BACK_ROW][ROOK_QUEEN_SIDE]   = new Piece(PieceType.ROOK,   Color.BLACK);
+        grid[BLACK_BACK_ROW][KNIGHT_QUEEN_SIDE]  = new Piece(PieceType.KNIGHT, Color.BLACK);
+        grid[BLACK_BACK_ROW][BISHOP_QUEEN_SIDE]  = new Piece(PieceType.BISHOP, Color.BLACK);
+        grid[BLACK_BACK_ROW][QUEEN_FILE]         = new Piece(PieceType.QUEEN,  Color.BLACK);
+        grid[BLACK_BACK_ROW][KING_FILE]          = new Piece(PieceType.KING,   Color.BLACK);
+        grid[BLACK_BACK_ROW][BISHOP_KING_SIDE]   = new Piece(PieceType.BISHOP, Color.BLACK);
+        grid[BLACK_BACK_ROW][KNIGHT_KING_SIDE]   = new Piece(PieceType.KNIGHT, Color.BLACK);
+        grid[BLACK_BACK_ROW][ROOK_KING_SIDE]     = new Piece(PieceType.ROOK,   Color.BLACK);
     }
 
     public void movePiece(Position from, Position to) {
