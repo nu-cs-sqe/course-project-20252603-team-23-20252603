@@ -4,6 +4,9 @@ import java.util.Objects;
 
 public class Position {
 
+    public static final int MIN_INDEX = 0;
+    public static final int MAX_INDEX = 7;
+
     private final int row;
     private final int col;
 
@@ -16,7 +19,7 @@ public class Position {
     public int getCol() { return col; }
 
     public boolean isValid() {
-        return row >= 0 && row <= 7 && col >= 0 && col <= 7;
+        return row >= MIN_INDEX && row <= MAX_INDEX && col >= MIN_INDEX && col <= MAX_INDEX;
     }
 
     @Override

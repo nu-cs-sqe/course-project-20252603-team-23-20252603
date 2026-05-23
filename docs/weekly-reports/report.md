@@ -19,7 +19,7 @@
 2. [done] Xinyuan Liu: Plan "One Turn of the Game" phase — write requirements (`docs/requirements/one-turn.md`), class design (`docs/design/one-turn-design.md`), and BVA (`docs/bva/one-turn.md`) This might require adjustment based on 3,4
 3. [done] Aidan Mott: Implement core game logic — `Board`, `Game`, `GameState`, `GameStatus` (with BVA and unit tests)
 4. [In Progress] Julia Li: Implement GUI layer — `MainFrame`, `BoardPanel`, `SetupDialog` (Java Swing)
-5. [Not Started] All: Review teammates' PRs when ready — verify BVA coverage and TDD commit history before approving
+5. [done] All: Review teammates' PRs when ready — verify BVA coverage and TDD commit history before approving
 
 # Week 6 (05/04/2026-05/10/2026)
 **Planning and Progress Tracking**:
@@ -33,7 +33,11 @@
 1. [done] Xinyuan Liu: Set up JaCoCo and Pitest in build.gradle.kts
 2. [done] Xinyuan Liu: Implement "One win condition" 
 3. [In Progress] Julia Li: Continue GUI layer implementation — MainFrame, BoardPanel, SetupDialog
-4. [Not Started] All: Discuss and document Integration Testing plan on GitHub Project board
-5. [Not Started] All: Discuss and document i18n plan on GitHub Project board
+4. [done] All: Discuss and document Integration Testing plan on GitHub Project board
+5. [done] All: Discuss and document i18n plan on GitHub Project board
 6. [Not Started] All: Review teammates' PRs — verify BVA coverage and TDD commit history before approving
+
+# Week 8 (05/18/2026-05/24/2026)
+**Planning and Progress Tracking**:
+1. [done] Xinyuan Liu: Address week 7 instructor feedback — replace magic numbers in `Board`, `Position`, and `Move` with named constants (`BOARD_SIZE`, `WHITE_BACK_ROW`, `BLACK_BACK_ROW`, `WHITE_PAWN_ROW`, `BLACK_PAWN_ROW`, file/column constants, `MIN_INDEX`, `MAX_INDEX`) and extract hardcoded error strings in `Move` to `static final` fields
 
