@@ -172,19 +172,6 @@ assertEquals(GameStatus.CHECKMATE, game.getState().getStatus());
 assertEquals(Color.WHITE, game.getState().getWinner());
 ```
 
----
-
-# Test Organization
-
-```
-src/test/java/integration/
-├── GameSetupIntegrationTest.java
-├── MultiTurnIntegrationTest.java
-└── WinConditionIntegrationTest.java
-```
-
----
-
 # Notes on Test Design
 
 ### 1. No mocking

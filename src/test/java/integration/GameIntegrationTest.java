@@ -1,17 +1,34 @@
 package integration;
 
 import model.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GameSetupIntegrationTest {
+public class GameIntegrationTest {
+
+    private Game game;
+
+    @BeforeEach
+    void setUp() {
+        game = new Game("Alice", "Bob");
+        game.setup();
+    }
+
+    private void move(int fr, int fc, int tr, int tc) {
+        game.makeMove(new Move(
+                new Position(fr, fc),
+                new Position(tr, tc)
+        ));
+    }
+
+    private void assertTurn(Color expected) {
+        assertEquals(expected, game.getState().getCurrentTurn());
+    }
 
     @Test
-    void fullGameSetupInitializesBoardCorrectly() {
-        Game game = new Game("Alice", "Bob");
-        game.setup();
-
+    void scenario1_fullGameSetupInitializesBoardCorrectly() {
         assertEquals(GameStatus.IN_PROGRESS, game.getState().getStatus());
         assertEquals(Color.WHITE, game.getState().getCurrentTurn());
 
@@ -51,6 +68,36 @@ public class GameSetupIntegrationTest {
 
         assertEquals(Color.WHITE, board.getPieceAt(new Position(0, 0)).getColor());
         assertEquals(Color.BLACK, board.getPieceAt(new Position(7, 0)).getColor());
+    }
+
+    @Test
+    void scenario2_multiTurnPlay() {
+        // --- Initial state (from Scenario 1) ---
+        assertTurn(Color.WHITE);
+        assertEquals(GameStatus.IN_PROGRESS, game.getState().getStatus());
+
+        // --- Move 1: White pawn ---
+        move(1, 0, 2, 0);
+        assertTurn(Color.BLACK);
+
+        Piece whitePawn = game.getBoard().getPieceAt(new Position(2, 0));
+        assertNotNull(whitePawn);
+        assertEquals(Color.WHITE, whitePawn.getColor());
+
+        // --- Move 2: Black pawn ---
+        move(6, 0, 5, 0);
+        assertTurn(Color.WHITE);
+
+        Piece blackPawn = game.getBoard().getPieceAt(new Position(5, 0));
+        assertNotNull(blackPawn);
+        assertEquals(Color.BLACK, blackPawn.getColor());
+
+        // --- Move 3: White moves again ---
+        move(2, 0, 3, 0);
+        assertTurn(Color.BLACK);
+
+        // --- Final sanity checks ---
+        assertEquals(GameStatus.IN_PROGRESS, game.getState().getStatus());
     }
 
 }
