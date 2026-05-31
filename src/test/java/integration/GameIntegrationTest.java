@@ -1,6 +1,13 @@
 package integration;
 
-import model.*;
+import model.Game;
+import model.Board;
+import model.Piece;
+import model.Move;
+import model.Position;
+import model.PieceType;
+import model.Color;
+import model.GameStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
