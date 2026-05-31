@@ -71,6 +71,16 @@ public class GameIntegrationTest {
     }
 
     @Test
+    void scenario2_invalidMove_sameSquareRejected() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            game.makeMove(new Move(
+                    new Position(0, 0),
+                    new Position(0, 0)
+            ));
+        });
+    }
+
+    @Test
     void scenario2_multiTurnPlay() {
         // --- Initial state (from Scenario 1) ---
         assertTurn(Color.WHITE);
@@ -98,6 +108,25 @@ public class GameIntegrationTest {
 
         // --- Final sanity checks ---
         assertEquals(GameStatus.IN_PROGRESS, game.getState().getStatus());
+    }
+
+    @Test
+    void scenario3_winCondition_kingCapture() {
+        Board board = game.getBoard();
+
+        Piece whiteQueen = new Piece(PieceType.QUEEN, Color.WHITE);
+        Piece blackKing = new Piece(PieceType.KING, Color.BLACK);
+
+        Position attackerPos = new Position(3, 3);
+        Position kingPos = new Position(3, 5);
+
+        board.placePiece(whiteQueen, attackerPos);
+        board.placePiece(blackKing, kingPos);
+
+        game.makeMove(new Move(attackerPos, kingPos));
+
+        assertEquals(GameStatus.CHECKMATE, game.getState().getStatus());
+        assertEquals(Color.WHITE, game.getState().getWinner());
     }
 
 }
