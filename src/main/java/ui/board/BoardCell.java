@@ -1,4 +1,4 @@
-package ui;
+package ui.board;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -10,8 +10,8 @@ class BoardCell extends StackPane {
 
     private static final int PIECE_FONT_SIZE = 36;
 
-    private static final String LIGHT_COLOR = "#F0D9B5";
-    private static final String DARK_COLOR = "#B58863";
+    private static final String LIGHT_COLOR    = "#F0D9B5";
+    private static final String DARK_COLOR     = "#B58863";
     private static final String SELECTED_COLOR = "#F6F669";
 
     private final boolean light;

@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Game;
+import ui.controller.GameController;
 
 public class ChessApp extends Application {
 
@@ -20,7 +21,7 @@ public class ChessApp extends Application {
     }
 
     private void loadGame(Stage stage) {
-        String[] names = new SetupDialog().showAndWait().orElse(null);
+        String[] names = new SetupDialogView().showAndWait().orElse(null);
         if (names == null) {
             return;
         }

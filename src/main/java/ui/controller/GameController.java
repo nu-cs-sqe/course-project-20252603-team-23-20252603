@@ -1,4 +1,4 @@
-package ui;
+package ui.controller;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,6 +11,7 @@ import model.Move;
 import model.Piece;
 import model.Player;
 import model.Position;
+import ui.board.BoardView;
 
 public class GameController {
 
@@ -91,11 +92,9 @@ public class GameController {
         GameStatus status = game.getState().getStatus();
         if (status == GameStatus.IN_PROGRESS) {
             Player current = game.getCurrentPlayer();
-            String colorStr = colorLabel(current.getColor());
-            statusLabel.setText(current.getName() + "'s turn (" + colorStr + ")");
+            statusLabel.setText(current.getName() + "'s turn (" + colorLabel(current.getColor()) + ")");
         } else if (status == GameStatus.CHECKMATE) {
-            String winnerName = game.getCurrentPlayer().getName();
-            statusLabel.setText("Checkmate! " + winnerName + " wins!");
+            statusLabel.setText("Checkmate! " + game.getCurrentPlayer().getName() + " wins!");
         }
     }
 

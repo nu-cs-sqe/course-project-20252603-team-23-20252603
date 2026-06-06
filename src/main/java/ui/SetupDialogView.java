@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 
 import java.util.Optional;
 
-public class SetupDialog {
+public class SetupDialogView {
 
     public Optional<String[]> showAndWait() {
         Dialog<String[]> dialog = new Dialog<>();

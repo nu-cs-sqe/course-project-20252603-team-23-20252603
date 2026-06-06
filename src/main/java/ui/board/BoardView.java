@@ -1,4 +1,4 @@
-package ui;
+package ui.board;
 
 import javafx.scene.layout.GridPane;
 import model.Board;

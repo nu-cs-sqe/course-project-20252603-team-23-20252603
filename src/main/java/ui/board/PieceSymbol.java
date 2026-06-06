@@ -1,4 +1,4 @@
-package ui;
+package ui.board;
 
 import model.Color;
 import model.Piece;
