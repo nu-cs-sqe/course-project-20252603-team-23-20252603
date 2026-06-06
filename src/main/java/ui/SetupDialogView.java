@@ -9,15 +9,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class SetupDialogView {
 
-    public Optional<String[]> showAndWait() {
+    public Optional<String[]> showAndWait(ResourceBundle bundle) {
         Dialog<String[]> dialog = new Dialog<>();
-        dialog.setTitle("New Game");
-        dialog.setHeaderText("Enter player names");
+        dialog.setTitle(bundle.getString("setup.title"));
+        dialog.setHeaderText(bundle.getString("setup.header"));
 
-        ButtonType startButton = new ButtonType("Start", ButtonBar.ButtonData.OK_DONE);
+        ButtonType startButton = new ButtonType(
+                bundle.getString("setup.button.start"), ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(startButton, ButtonType.CANCEL);
 
         GridPane grid = new GridPane();
@@ -25,12 +27,12 @@ public class SetupDialogView {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        TextField whiteName = new TextField("White");
-        TextField blackName = new TextField("Black");
+        TextField whiteName = new TextField(bundle.getString("setup.field.white"));
+        TextField blackName = new TextField(bundle.getString("setup.field.black"));
 
-        grid.add(new Label("White player:"), 0, 0);
+        grid.add(new Label(bundle.getString("setup.label.whitePlayer")), 0, 0);
         grid.add(whiteName, 1, 0);
-        grid.add(new Label("Black player:"), 0, 1);
+        grid.add(new Label(bundle.getString("setup.label.blackPlayer")), 0, 1);
         grid.add(blackName, 1, 1);
 
         dialog.getDialogPane().setContent(grid);

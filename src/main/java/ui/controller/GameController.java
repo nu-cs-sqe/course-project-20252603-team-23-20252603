@@ -13,15 +13,20 @@ import model.Player;
 import model.Position;
 import ui.board.BoardView;
 
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
+
 public class GameController {
 
     private final Game game;
     private final BoardView boardView;
     private final Label statusLabel;
+    private final ResourceBundle bundle;
     private Position selectedPos;
 
-    public GameController(Game game) {
+    public GameController(Game game, ResourceBundle bundle) {
         this.game = game;
+        this.bundle = bundle;
         this.boardView = new BoardView();
         this.statusLabel = buildStatusLabel();
         this.selectedPos = null;
@@ -76,9 +81,9 @@ public class GameController {
         if (game.getState().getStatus() == GameStatus.CHECKMATE) {
             String winnerName = game.getCurrentPlayer().getName();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Game Over");
-            alert.setHeaderText("Checkmate!");
-            alert.setContentText(winnerName + " wins!");
+            alert.setTitle(bundle.getString("alert.gameOver.title"));
+            alert.setHeaderText(bundle.getString("alert.gameOver.header"));
+            alert.setContentText(MessageFormat.format(bundle.getString("alert.gameOver.content"), winnerName));
             alert.showAndWait();
         }
     }
@@ -92,15 +97,18 @@ public class GameController {
         GameStatus status = game.getState().getStatus();
         if (status == GameStatus.IN_PROGRESS) {
             Player current = game.getCurrentPlayer();
-            statusLabel.setText(current.getName() + "'s turn (" + colorLabel(current.getColor()) + ")");
+            String text = MessageFormat.format(
+                    bundle.getString("status.turn"), current.getName(), colorLabel(current.getColor()));
+            statusLabel.setText(text);
         } else if (status == GameStatus.CHECKMATE) {
-            statusLabel.setText("Checkmate! " + game.getCurrentPlayer().getName() + " wins!");
+            String text = MessageFormat.format(
+                    bundle.getString("status.checkmate"), game.getCurrentPlayer().getName());
+            statusLabel.setText(text);
         }
     }
 
     private String colorLabel(Color color) {
-        String raw = color.toString();
-        return raw.charAt(0) + raw.substring(1).toLowerCase();
+        return bundle.getString(color == Color.WHITE ? "color.white" : "color.black");
     }
 
     public BoardView getBoardView() {
