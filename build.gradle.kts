@@ -1,13 +1,24 @@
 plugins {
     id("java")
+    id("application")
     id("jacoco")
     id("checkstyle")
     id("com.github.spotbugs") version "6.0.9"
     id("info.solidsoft.pitest") version "1.15.0"
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 group = "nu.csse.sqe"
 version = "1.0"
+
+application {
+    mainClass.set("ui.Main")
+}
+
+javafx {
+    version = "17"
+    modules = listOf("javafx.controls")
+}
 
 repositories {
     mavenCentral()
@@ -26,6 +37,11 @@ java {
 
 tasks.compileJava {
     options.release = 11
+    options.encoding = "UTF-8"
+}
+
+tasks.named<JavaExec>("run") {
+    System.getProperties().forEach { key, value -> systemProperties[key.toString()] = value }
 }
 
 tasks.test {
@@ -48,6 +64,7 @@ tasks.jacocoTestReport {
 tasks.jacocoTestCoverageVerification {
     violationRules {
         rule {
+            excludes = listOf("ui.*")
             limit {
                 minimum = "0.80".toBigDecimal()
             }

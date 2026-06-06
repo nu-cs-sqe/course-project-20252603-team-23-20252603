@@ -17,4 +17,11 @@
     <Match>
         <Bug pattern="EI_EXPOSE_REP"/>
     </Match>
+
+    <!-- EI_EXPOSE_REP2: UI controllers intentionally hold references to model objects;
+         defensive copying would break the controller's ability to drive game state -->
+    <Match>
+        <Class name="~ui\..*"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
 </FindBugsFilter>

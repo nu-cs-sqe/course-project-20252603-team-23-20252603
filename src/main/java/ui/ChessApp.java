@@ -1,0 +1,61 @@
+package ui;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import model.Game;
+import ui.controller.GameController;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+public class ChessApp extends Application {
+
+    private static final int SCENE_WIDTH = 560;
+    private static final int SCENE_HEIGHT = 620;
+
+    @Override
+    public void start(Stage stage) {
+        loadGame(stage);
+    }
+
+    private void loadGame(Stage stage) {
+        ResourceBundle bundle = Utf8ResourceBundle.load(Locale.getDefault());
+        String[] names = new SetupDialogView().showAndWait(bundle).orElse(null);
+        if (names == null) {
+            return;
+        }
+
+        Game game = new Game(names[0], names[1]);
+        game.setup();
+
+        GameController controller = new GameController(game, bundle);
+
+        BorderPane root = new BorderPane();
+        root.setTop(buildMenuBar(stage, bundle));
+        root.setCenter(controller.getBoardView());
+        root.setBottom(controller.getStatusLabel());
+
+        if (stage.getScene() == null) {
+            stage.setTitle(bundle.getString("app.title"));
+            stage.setScene(new Scene(root, SCENE_WIDTH, SCENE_HEIGHT));
+            stage.setResizable(false);
+            stage.show();
+        } else {
+            stage.setTitle(bundle.getString("app.title"));
+            stage.getScene().setRoot(root);
+        }
+    }
+
+    private MenuBar buildMenuBar(Stage stage, ResourceBundle bundle) {
+        MenuItem newGame = new MenuItem(bundle.getString("menu.newGame"));
+        newGame.setOnAction(e -> loadGame(stage));
+        Menu gameMenu = new Menu(bundle.getString("menu.game"));
+        gameMenu.getItems().add(newGame);
+        return new MenuBar(gameMenu);
+    }
+}
