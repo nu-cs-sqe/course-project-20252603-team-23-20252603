@@ -14,6 +14,8 @@ import model.Position;
 import ui.board.BoardView;
 
 import java.text.MessageFormat;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class GameController {
@@ -23,6 +25,7 @@ public class GameController {
     private final Label statusLabel;
     private final ResourceBundle bundle;
     private Position selectedPos;
+    private List<Position> legalMoves = Collections.emptyList();
 
     public GameController(Game game, ResourceBundle bundle) {
         this.game = game;
@@ -54,10 +57,12 @@ public class GameController {
         if (selectedPos == null) {
             if (piece != null && piece.getColor() == game.getState().getCurrentTurn()) {
                 selectedPos = clicked;
-                boardView.refresh(game.getBoard(), selectedPos);
+                legalMoves = game.getLegalMoves(selectedPos);
+                boardView.refresh(game.getBoard(), selectedPos, legalMoves);
             }
         } else if (clicked.equals(selectedPos)) {
             selectedPos = null;
+            legalMoves = Collections.emptyList();
             boardView.refresh(game.getBoard(), null);
         } else {
             attemptMove(clicked);
@@ -68,10 +73,12 @@ public class GameController {
         try {
             game.makeMove(new Move(selectedPos, target));
             selectedPos = null;
+            legalMoves = Collections.emptyList();
             refresh();
             checkGameOver();
         } catch (IllegalArgumentException e) {
             selectedPos = null;
+            legalMoves = Collections.emptyList();
             boardView.refresh(game.getBoard(), null);
             updateStatus();
         }
@@ -89,7 +96,7 @@ public class GameController {
     }
 
     private void refresh() {
-        boardView.refresh(game.getBoard(), selectedPos);
+        boardView.refresh(game.getBoard(), selectedPos, legalMoves);
         updateStatus();
     }
 

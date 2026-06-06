@@ -62,9 +62,13 @@ tasks.jacocoTestReport {
 }
 
 tasks.jacocoTestCoverageVerification {
+    classDirectories.setFrom(
+        sourceSets.main.get().output.asFileTree.matching {
+            exclude("ui/**")
+        }
+    )
     violationRules {
         rule {
-            excludes = listOf("ui.*")
             limit {
                 minimum = "0.80".toBigDecimal()
             }

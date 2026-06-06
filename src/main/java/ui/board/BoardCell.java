@@ -13,6 +13,7 @@ class BoardCell extends StackPane {
     private static final String LIGHT_COLOR    = "#F0D9B5";
     private static final String DARK_COLOR     = "#B58863";
     private static final String SELECTED_COLOR = "#F6F669";
+    private static final String LEGAL_COLOR    = "#CDD16E";
 
     private final boolean light;
 
@@ -20,11 +21,18 @@ class BoardCell extends StackPane {
         this.light = light;
         setPrefSize(BoardView.CELL_SIZE, BoardView.CELL_SIZE);
         setAlignment(Pos.CENTER);
-        setSelected(false);
+        setHighlight(false, false);
     }
 
-    void setSelected(boolean selected) {
-        String color = selected ? SELECTED_COLOR : (light ? LIGHT_COLOR : DARK_COLOR);
+    void setHighlight(boolean selected, boolean legal) {
+        String color;
+        if (selected) {
+            color = SELECTED_COLOR;
+        } else if (legal) {
+            color = LEGAL_COLOR;
+        } else {
+            color = light ? LIGHT_COLOR : DARK_COLOR;
+        }
         setStyle("-fx-background-color: " + color + ";");
     }
 
