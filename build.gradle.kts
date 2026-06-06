@@ -37,6 +37,11 @@ java {
 
 tasks.compileJava {
     options.release = 11
+    options.encoding = "UTF-8"
+}
+
+tasks.named<JavaExec>("run") {
+    System.getProperties().forEach { key, value -> systemProperties[key.toString()] = value }
 }
 
 tasks.test {
