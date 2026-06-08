@@ -4,6 +4,8 @@ import javafx.scene.layout.GridPane;
 import model.Board;
 import model.Position;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class BoardView extends GridPane {
@@ -40,18 +42,25 @@ public class BoardView extends GridPane {
         }
     }
 
-    public void refresh(Board board, Position selected) {
+    public void refresh(Board board, Position selected, List<Position> legalMoves) {
         for (int modelRow = 0; modelRow < Board.BOARD_SIZE; modelRow++) {
             for (int col = 0; col < Board.BOARD_SIZE; col++) {
-                refreshCell(board, modelRow, col, selected);
+                refreshCell(board, modelRow, col, selected, legalMoves);
             }
         }
     }
 
-    private void refreshCell(Board board, int modelRow, int col, Position selected) {
+    public void refresh(Board board, Position selected) {
+        refresh(board, selected, Collections.emptyList());
+    }
+
+    private void refreshCell(Board board, int modelRow, int col,
+                              Position selected, List<Position> legalMoves) {
         Position pos = new Position(modelRow, col);
         BoardCell cell = cells[toGridRow(modelRow)][col];
-        cell.setSelected(isSelected(pos, selected));
+        boolean isSelected = isSelected(pos, selected);
+        boolean isLegal = !isSelected && legalMoves.contains(pos);
+        cell.setHighlight(isSelected, isLegal);
         cell.setPiece(board.getPieceAt(pos));
     }
 
@@ -75,3 +84,4 @@ public class BoardView extends GridPane {
         return selected != null && selected.equals(pos);
     }
 }
+
