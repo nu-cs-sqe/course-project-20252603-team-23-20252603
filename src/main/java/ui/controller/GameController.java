@@ -91,8 +91,13 @@ public class GameController {
             alert.setTitle(bundle.getString("alert.gameOver.title"));
             alert.setHeaderText(bundle.getString("alert.gameOver.header"));
             alert.setContentText(MessageFormat.format(bundle.getString("alert.gameOver.content"), winnerName));
-            alert.showAndWait();
+            presentGameOverAlert(alert);
         }
+    }
+
+    /** Seam for tests: shows the dialog in production, can be overridden to avoid blocking on showAndWait(). */
+    void presentGameOverAlert(Alert alert) {
+        alert.showAndWait();
     }
 
     private void refresh() {

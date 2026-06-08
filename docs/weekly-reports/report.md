@@ -41,3 +41,18 @@
 **Planning and Progress Tracking**:
 1. [done] Xinyuan Liu: Address week 7 instructor feedback — replace magic numbers in `Board`, `Position`, and `Move` with named constants (`BOARD_SIZE`, `WHITE_BACK_ROW`, `BLACK_BACK_ROW`, `WHITE_PAWN_ROW`, `BLACK_PAWN_ROW`, file/column constants, `MIN_INDEX`, `MAX_INDEX`) and extract hardcoded error strings in `Move` to `static final` fields
 
+# Week 9 (05/25/2026-05/31/2026)
+**Planning and Progress Tracking**:
+1. [done] Aidan Mott: Document the integration testing plan (`docs/testing/integration-test-plan.md`) and complete the Scenario 1 integration test in `GameIntegrationTest`
+2. [done] Aidan Mott: Add passing integration test cases for Scenario 2 and an additional integration test case for Scenario 3
+3. [done] Aidan Mott: Fix imports in `GameIntegrationTest` to comply with Checkstyle style rules
+4. [Not Started] All: Review teammates' PRs — verify BVA coverage and TDD commit history before approving
+
+# Week 10 (06/01/2026-06/07/2026)
+**Planning and Progress Tracking**:
+1. [done] Julia Li: Migrate the GUI layer from Java Swing to JavaFX 17 — set up `ChessApp`, `Main`, `BoardView`, `BoardCell`, `SetupDialogView`, `Utf8ResourceBundle`, and `GameController`, and refactor the UI code into a cleaner package structure with shared helpers (PR #24)
+2. [done] Julia Li: Implement i18n support with English and Chinese resource bundles (`labels_en_US.properties`, `labels_zh_CN.properties`) (PR #25)
+3. [done] Estella Liu: Write "Multiple turns" and "Win condition" requirements docs, implement `MoveValidator` with BVA-based unit tests, and update `Game` and the JavaFX UI components (`BoardCell`, `BoardView`, `GameController`, `SetupDialogView`) to support win detection and turn management (PR #26)
+4. [done] All: Merge the integration testing plan (#23), JavaFX GUI migration (#24), i18n support (#25), and game requirements/move validator work (#26) into `main`
+5. [In Progress] All: Address week 9/10 instructor feedback — add controller-level unit tests for `GameController` (selection, move attempts, turn switching, checkmate/game-over handling) to satisfy the 100% cyclomatic coverage rubric for non-GUI code, and run tests headlessly in CI via Xvfb
+
