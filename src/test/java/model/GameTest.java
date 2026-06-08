@@ -177,12 +177,13 @@ public class GameTest {
     void makeMove_capturesOpponentPiece() { // BVA-MT-09
         Game game = new Game("Alice", "Bob");
         game.setup();
-        // Manually place a black pawn in an empty square reachable by white
-        game.getBoard().placePiece(new Piece(PieceType.PAWN, Color.BLACK), new Position(3, 0));
+        // Place a white queen and a black pawn in the empty middle rows, queen captures horizontally
+        game.getBoard().placePiece(new Piece(PieceType.QUEEN, Color.WHITE), new Position(3, 2));
+        game.getBoard().placePiece(new Piece(PieceType.PAWN, Color.BLACK), new Position(3, 5));
 
-        game.makeMove(new Move(new Position(1, 0), new Position(3, 0)));
+        game.makeMove(new Move(new Position(3, 2), new Position(3, 5)));
 
-        assertEquals(Color.WHITE, game.getBoard().getPieceAt(new Position(3, 0)).getColor());
+        assertEquals(Color.WHITE, game.getBoard().getPieceAt(new Position(3, 5)).getColor());
     }
 
     @Test
@@ -203,11 +204,11 @@ public class GameTest {
     void makeMove_capturesOpponentKing_setsStatusToCheckmate() { // BVA-WC-01
         Game game = new Game("Alice", "Bob");
         game.setup();
-        // Place black king where white can capture it directly
         Board board = game.getBoard();
-        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 0));
+        board.placePiece(new Piece(PieceType.QUEEN, Color.WHITE), new Position(3, 2));
+        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 5));
 
-        game.makeMove(new Move(new Position(1, 0), new Position(3, 0)));
+        game.makeMove(new Move(new Position(3, 2), new Position(3, 5)));
 
         assertEquals(GameStatus.CHECKMATE, game.getState().getStatus());
     }
@@ -217,9 +218,10 @@ public class GameTest {
         Game game = new Game("Alice", "Bob");
         game.setup();
         Board board = game.getBoard();
-        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 0));
+        board.placePiece(new Piece(PieceType.QUEEN, Color.WHITE), new Position(3, 2));
+        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 5));
 
-        game.makeMove(new Move(new Position(1, 0), new Position(3, 0)));
+        game.makeMove(new Move(new Position(3, 2), new Position(3, 5)));
 
         assertEquals(Color.WHITE, game.getState().getWinner());
     }
@@ -229,8 +231,9 @@ public class GameTest {
         Game game = new Game("Alice", "Bob");
         game.setup();
         Board board = game.getBoard();
-        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 0));
-        game.makeMove(new Move(new Position(1, 0), new Position(3, 0)));
+        board.placePiece(new Piece(PieceType.QUEEN, Color.WHITE), new Position(3, 2));
+        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 5));
+        game.makeMove(new Move(new Position(3, 2), new Position(3, 5)));
 
         assertThrows(IllegalStateException.class,
                 () -> game.makeMove(new Move(new Position(1, 1), new Position(3, 1))));
@@ -240,13 +243,26 @@ public class GameTest {
     void makeMove_capturesNonKing_statusRemainsInProgress() { // BVA-WC-04
         Game game = new Game("Alice", "Bob");
         game.setup();
-        // White captures black pawn (row 6, col 0) — not the king
         Board board = game.getBoard();
-        board.placePiece(new Piece(PieceType.PAWN, Color.BLACK), new Position(3, 0));
+        board.placePiece(new Piece(PieceType.QUEEN, Color.WHITE), new Position(3, 2));
+        board.placePiece(new Piece(PieceType.PAWN, Color.BLACK), new Position(3, 5));
 
-        game.makeMove(new Move(new Position(1, 0), new Position(3, 0)));
+        game.makeMove(new Move(new Position(3, 2), new Position(3, 5)));
 
         assertEquals(GameStatus.IN_PROGRESS, game.getState().getStatus());
+    }
+
+    @Test
+    void makeMove_capturesKing_turnDoesNotSwitch() { // BVA-WC-06
+        Game game = new Game("Alice", "Bob");
+        game.setup();
+        Board board = game.getBoard();
+        board.placePiece(new Piece(PieceType.QUEEN, Color.WHITE), new Position(3, 2));
+        board.placePiece(new Piece(PieceType.KING, Color.BLACK), new Position(3, 5));
+
+        game.makeMove(new Move(new Position(3, 2), new Position(3, 5)));
+
+        assertEquals(Color.WHITE, game.getState().getCurrentTurn());
     }
 
     @Test

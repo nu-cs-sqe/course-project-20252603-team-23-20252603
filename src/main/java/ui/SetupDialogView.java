@@ -41,9 +41,10 @@ public class SetupDialogView {
             if (buttonType == startButton) {
                 String w = whiteName.getText().trim();
                 String b = blackName.getText().trim();
-                if (!w.isEmpty() && !b.isEmpty()) {
-                    return new String[]{w, b};
-                }
+                return new String[]{
+                    w.isEmpty() ? "Player 1" : w,
+                    b.isEmpty() ? "Player 2" : b
+                };
             }
             return null;
         });

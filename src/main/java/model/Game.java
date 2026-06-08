@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Game {
 
     private final Board board;
@@ -80,5 +83,19 @@ public class Game {
         if (target != null && target.getColor() == state.getCurrentTurn()) {
             throw new IllegalArgumentException("Cannot move to square occupied by own piece");
         }
+        if (!MoveValidator.isMoveLegal(move, board, state.getCurrentTurn())) {
+            throw new IllegalArgumentException("Illegal move for this piece type");
+        }
+    }
+
+    public List<Position> getLegalMoves(Position pos) {
+        if (pos == null || state.getStatus() != GameStatus.IN_PROGRESS) {
+            return Collections.emptyList();
+        }
+        Piece piece = board.getPieceAt(pos);
+        if (piece == null || piece.getColor() != state.getCurrentTurn()) {
+            return Collections.emptyList();
+        }
+        return MoveValidator.getLegalDestinations(pos, board, state.getCurrentTurn());
     }
 }
